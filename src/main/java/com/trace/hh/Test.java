@@ -2,19 +2,18 @@ package com.trace.hh;
 
 import com.trace.hh.service.OrderService;
 import com.trace.hh.service.UserService;
-import com.trace.hh.service.UserServiceImpl;
-import com.trace.hh.spring.ApplicationContext;
+import com.trace.hh.spring.MyApplicationContext;
 
-public class TestDemo {
+public class Test {
     public static void main(String[] args) {
 
-        ApplicationContext applicationContext = new ApplicationContext(ApplicationConfig.class);
+        MyApplicationContext myApplicationContext = new MyApplicationContext(AppConfig.class);
 
         //userService 可能是代理对象
-        UserService userService = (UserService) applicationContext.getBean("userService");
+        UserService userService = (UserService) myApplicationContext.getBean("userService");
         userService.checkUser();
 
-/*        OrderService orderService = (OrderService) applicationContext.getBean("orderService");
+       /* OrderService orderService = (OrderService) applicationContext.getBean("orderService");
         orderService.listOrder();
 
         OrderService orderService2 = (OrderService) applicationContext.getBean("orderService");

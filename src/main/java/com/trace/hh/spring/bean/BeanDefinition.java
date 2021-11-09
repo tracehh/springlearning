@@ -1,6 +1,8 @@
 package com.trace.hh.spring.bean;
 
-
+/**
+ * BeanDefinition class
+ */
 public class BeanDefinition {
 
     private Class beanClass;

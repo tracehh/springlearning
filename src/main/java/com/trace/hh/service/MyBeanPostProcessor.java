@@ -10,6 +10,8 @@ import java.lang.reflect.Proxy;
 
 @Component
 public class MyBeanPostProcessor implements BeanPostProcessor {
+
+    @Override
     public Object postProcessBeforeInitialization(String beanName, Object bean) {
         if(beanName.equals("userService")){
             System.out.println("MyBeanPostProcessor初始化前");
@@ -24,6 +26,7 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
      * @param bean
      * @return
      */
+    @Override
     public Object postProcessAfterInitialization(String beanName, final Object bean) {
         if (beanName.equals("userService")) {
             System.out.println("MyBeanPostProcessor初始化后");

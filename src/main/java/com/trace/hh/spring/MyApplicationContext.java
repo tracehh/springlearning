@@ -20,28 +20,32 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author xhh
- */
-public class ApplicationContext {
+     * Spring container class
+     */
+    public class MyApplicationContext {
 
-    private ConcurrentHashMap<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>();
-    private ConcurrentHashMap<String, Object> singletonObjects = new ConcurrentHashMap<String, Object>();
-    private List<BeanPostProcessor> beanPostProcessorList = new ArrayList<BeanPostProcessor>();
+        private Class configClass;
 
-    public ApplicationContext(Class configClass) {
+        private ConcurrentHashMap<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>();
+        private ConcurrentHashMap<String, Object> singletonObjects = new ConcurrentHashMap<String, Object>();
+        private List<BeanPostProcessor> beanPostProcessorList = new ArrayList<BeanPostProcessor>();
 
-        //扫描得到 beanDefinitionMap
-        scan(configClass);
+        public MyApplicationContext(Class configClass) {
 
-        // 实例化单例bean并放到容器中
-        createSingletonInstanceBean();
-    }
+            this.configClass = configClass;
+
+            //解析configclass->ComponentScan注解->扫描路径->获取class->解析component注解->beanDefinition->beanDefinitionMap
+            scan(configClass);
+
+            // 实例化单例bean并放到容器中
+            createSingletonInstanceBean();
+        }
 
 
     private void scan(Class configClass) {
         //扫描路径下的class 转化为BeanDefinition对象，添加到容器beanDefinitionMap中
-
         ComponentScan componentScanAnnotation = (ComponentScan) configClass.getAnnotation(ComponentScan.class);
+
         // 得到包路径
         String packagePath = componentScanAnnotation.value();
 

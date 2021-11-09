@@ -10,8 +10,8 @@ import com.trace.hh.spring.bean.InitializingBean;
 @Scope("singleton")
 public class OrderService implements BeanNameAware, InitializingBean {
 
-    // @Autowired
-   // private UserService userService;
+    @Autowired
+    private UserService userService;
 
     private String beanName;
 
@@ -21,10 +21,12 @@ public class OrderService implements BeanNameAware, InitializingBean {
         //userService.checkUser();
     }
 
+    @Override
     public void setBeanName(String name) {
         this.beanName = name;
     }
 
+    @Override
     public void afterPropertiesSet() {
         System.out.println("afterPropertiesSet  inital.....");
     }
